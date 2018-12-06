@@ -1,2 +1,2 @@
 # sarch
-A simple Node REST API code sample
+A simple NodeJS REST API code sample. 
