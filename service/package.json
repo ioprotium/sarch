@@ -1,0 +1,29 @@
+{
+  "name": "sarch-service",
+  "version": "0.1.0",
+  "description": "Sarch service",
+  "main": "dist/index.js",
+  "author": "Brian Mayo",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "config": "^3.0.0",
+    "express": "^4.16.4",
+    "firebase-admin": "^6.3.0",
+    "lodash": "^4.17.11",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/config": "^0.0.34",
+    "@types/express": "^4.16.0",
+    "@types/uuid": "^3.4.4",
+    "js-yaml": "^3.12.0",
+    "nodemon": "^1.18.7",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.1"
+  }
+}
