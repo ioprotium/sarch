@@ -8,9 +8,8 @@ import AccountModel from 'api/accounts/Accounts.model';
 
 class AccountsFirebaseDBRepository implements IAccountsRepository {
   private static instance: any;
-  private firebaseApp: admin.app.App;
+  private firebase: admin.app.App;
   private endpoints: IAPIEndPoints;
-  private db: admin.database.Database;
   // private accountsRef: admin.database.Reference
 
   constructor() {
@@ -28,7 +27,7 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
   public connect(): void {
     try {
       const firebaseConfig = config.get<IFirebaseConfig>('firebase');
-      this.firebaseApp = admin.initializeApp({
+      this.firebase = admin.initializeApp({
         credential: admin.credential.cert({
           clientEmail: firebaseConfig.clientEmail,
           projectId: firebaseConfig.projectId,
@@ -36,7 +35,6 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
         }),
         databaseURL: firebaseConfig.baseUrl
       });
-      this.db = this.firebaseApp.database();
     } catch (error) {
       console.log(error.message);
       throw error;
@@ -45,7 +43,10 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
 
   public async getAccounts(): Promise<AccountModel[]> {
     try {
-      const accountsRef = this.db.ref(this.endpoints.accounts).orderByKey();
+      const accountsRef = this.firebase
+        .database()
+        .ref(this.endpoints.accounts)
+        .orderByKey();
       const snap = await accountsRef.once('value');
       const result: AccountModel[] = [];
 
@@ -74,7 +75,9 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
   }
 
   public async getAccountById(id: string): Promise<AccountModel> {
-    const ref = this.db.ref(`${this.endpoints.accounts}/${id}`);
+    const ref = this.firebase
+      .database()
+      .ref(`${this.endpoints.accounts}/${id}`);
     const account = await ref.once('value');
     if (!account.val()) {
       throw {
@@ -87,7 +90,7 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
   }
 
   public async saveAccount(account: AccountModel): Promise<AccountModel> {
-    const checkAccount = this.getAccountByEmail(account.email);
+    const checkAccount = await this.getAccountByEmail(account.email);
     if (checkAccount) {
       throw {
         message: `Account with email "${account.email}" already exists.`,
@@ -108,7 +111,9 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
 
   public async deleteAccountById(id: string): Promise<void> {
     try {
-      const ref = this.db.ref(`${this.endpoints.accounts}/${id}`);
+      const ref = this.firebase
+        .database()
+        .ref(`${this.endpoints.accounts}/${id}`);
       await ref.remove();
     } catch (error) {
       console.log('delete', error);
@@ -122,7 +127,9 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
     update: boolean = false
   ): Promise<AccountModel> {
     try {
-      const ref = this.db.ref(`${this.endpoints.accounts}/${account.id}`);
+      const ref = this.firebase
+        .database()
+        .ref(`${this.endpoints.accounts}/${account.id}`);
 
       if (update) {
         await ref.update({ email: account.email });
