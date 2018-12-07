@@ -7,3 +7,5 @@ api:
   version: v1
   endpoints:
     accounts: accounts
+server:
+  port: 3000
