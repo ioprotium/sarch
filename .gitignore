@@ -1,3 +1,5 @@
 service/node_modules
-service/config/local.yml
+service/config/*.yml
+!service/config/default.yml
+
 client/node_modules
