@@ -1,1 +1,2 @@
-export { AccountsRouter } from './accounts/Accounts.router';
+export { AccountsRouter } from './accounts/router';
+export { default as AccountModel } from './accounts/model';
