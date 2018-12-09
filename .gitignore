@@ -1,5 +1,4 @@
-service/node_modules
+**/node_modules
+
 service/config/*.yml
 !service/config/default.yml
-
-client/node_modules
