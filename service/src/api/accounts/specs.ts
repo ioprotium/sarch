@@ -10,16 +10,15 @@ describe('Account Endpoint Tests', () => {
 
   beforeAll(done => {
     const apiConfig = config.get<IAPIConfig>('api');
-    rootUri = `/api/${apiConfig.version}/${apiConfig.endpoints.accounts}/`;
+    rootUri = `/api/${apiConfig.version}/${apiConfig.endpoints.accounts}`;
     done();
   });
 
-  it('GET / - should get an empty or populated array of accounts', done => {
+  it('GET / - should get 404', done => {
     supertest(app)
-      .get(rootUri)
-      .expect(200)
+      .get(rootUri + '/1234')
+      .expect(404)
       .then(res => {
-        expect(res.body.length).toBeGreaterThanOrEqual(0);
         done();
       });
   });
@@ -40,7 +39,6 @@ describe('Account Endpoint Tests', () => {
       .post(rootUri)
       .send({ email: 'test@test.com' })
       .then(res => {
-        console.log(res.status);
         expect(res.status === 201 || res.status === 409).toBeTruthy();
         done();
       });

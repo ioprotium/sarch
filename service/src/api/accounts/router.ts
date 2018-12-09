@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import AccountsController from './Accounts.controller';
-import { validateAccount } from './Accounts.validators';
+import AccountsController from './controller';
+import { validateAccount } from './validators';
 import { IAccountsRepository } from 'data';
 
 export class AccountsRouter {
@@ -13,10 +13,7 @@ export class AccountsRouter {
     this.routes
       .route('/')
       .get(this.controller.listAccounts.bind(this.controller))
-      .post(
-        validateAccount,
-        this.controller.createAccount.bind(this.controller)
-      );
+      .post(validateAccount, this.controller.addAccount.bind(this.controller));
 
     this.routes
       .route('/:accountId')

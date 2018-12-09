@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import AccountModel from './Accounts.model';
+import AccountModel from './model';
 
 const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 const emailMaxLength = 254;
