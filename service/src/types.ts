@@ -1,5 +1,6 @@
 export interface IAPIEndPoints {
   accounts: string;
+  docs: string;
 }
 
 export interface IFirebaseConfig {
