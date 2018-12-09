@@ -1,62 +1,35 @@
-import * as admin from 'firebase-admin';
 import * as config from 'config';
+import { database } from 'firebase-admin';
 import { v1 } from 'uuid';
 import { find } from 'lodash';
+import logger from '../../components/logger';
 import IAccountsRepository from './IAccountsRepository';
-import { IFirebaseConfig, IAPIEndPoints } from 'types';
-import AccountModel from 'api/accounts/Accounts.model';
+import { IAPIEndPoints } from '../../types';
+import { AccountModel } from '../../api/';
 
 class AccountsFirebaseDBRepository implements IAccountsRepository {
-  private static instance: any;
-  private firebase: admin.app.App;
+  private readonly TAG = '[Firebase DB] ';
   private endpoints: IAPIEndPoints;
+  private db: database.Database;
   // private accountsRef: admin.database.Reference
 
-  constructor() {
+  constructor(fireDB: database.Database) {
     this.endpoints = config.get<IAPIEndPoints>('api.endpoints');
-  }
-
-  public static get Instance(): AccountsFirebaseDBRepository {
-    if (!this.instance) {
-      this.instance = new AccountsFirebaseDBRepository();
-    }
-
-    return this.instance;
-  }
-
-  public connect(): void {
-    try {
-      const firebaseConfig = config.get<IFirebaseConfig>('firebase');
-      this.firebase = admin.initializeApp({
-        credential: admin.credential.cert({
-          clientEmail: firebaseConfig.clientEmail,
-          projectId: firebaseConfig.projectId,
-          privateKey: firebaseConfig.privateKey
-        }),
-        databaseURL: firebaseConfig.baseUrl
-      });
-    } catch (error) {
-      console.log(error.message);
-      throw error;
-    }
+    this.db = fireDB;
   }
 
   public async getAccounts(): Promise<AccountModel[]> {
     try {
-      const accountsRef = this.firebase
-        .database()
-        .ref(this.endpoints.accounts)
-        .orderByKey();
+      const accountsRef = this.db.ref(this.endpoints.accounts);
       const snap = await accountsRef.once('value');
-      const result: AccountModel[] = [];
-
-      this.getAccountByEmail('asa');
+      let result: AccountModel[] = [];
       snap.forEach(s => {
         result.push({ id: s.key, email: s.val().email });
       });
+
       return result;
     } catch (error) {
-      console.log(error);
+      logger.error(this.TAG, error.message);
       error.status = 500;
       throw error;
     }
@@ -68,16 +41,14 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
       const account = find<AccountModel>(all, { email });
       return account;
     } catch (error) {
-      console.log(error);
+      logger.error(this.TAG, error.message);
       error.status = 500;
       throw error;
     }
   }
 
   public async getAccountById(id: string): Promise<AccountModel> {
-    const ref = this.firebase
-      .database()
-      .ref(`${this.endpoints.accounts}/${id}`);
+    const ref = this.db.ref(`${this.endpoints.accounts}/${id}`);
     const account = await ref.once('value');
     if (!account.val()) {
       throw {
@@ -89,7 +60,7 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
     return { id: account.key, email: account.val() };
   }
 
-  public async saveAccount(account: AccountModel): Promise<AccountModel> {
+  public async addAccount(account: AccountModel): Promise<AccountModel> {
     const checkAccount = await this.getAccountByEmail(account.email);
     if (checkAccount) {
       throw {
@@ -98,7 +69,7 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
       };
     }
 
-    // we can get an auto generated id with ref.push()
+    // we could generate id with ref.push()
     account.id = v1();
     return await this._saveAccount(account);
   }
@@ -111,12 +82,10 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
 
   public async deleteAccountById(id: string): Promise<void> {
     try {
-      const ref = this.firebase
-        .database()
-        .ref(`${this.endpoints.accounts}/${id}`);
+      const ref = this.db.ref(`${this.endpoints.accounts}/${id}`);
       await ref.remove();
     } catch (error) {
-      console.log('delete', error);
+      logger.error(this.TAG, `Deleting account ${id}: ${error.message}`);
       error.status = 500;
       throw error;
     }
@@ -127,9 +96,7 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
     update: boolean = false
   ): Promise<AccountModel> {
     try {
-      const ref = this.firebase
-        .database()
-        .ref(`${this.endpoints.accounts}/${account.id}`);
+      const ref = this.db.ref(`${this.endpoints.accounts}/${account.id}`);
 
       if (update) {
         await ref.update({ email: account.email });
@@ -138,14 +105,11 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
       }
       return account;
     } catch (error) {
-      console.log('_save', error);
+      logger.error(this.TAG, error.message);
       error.status = 500;
       throw error;
     }
   }
 }
 
-let Repository = AccountsFirebaseDBRepository.Instance;
-Repository.connect();
-
-export default Repository;
+export default AccountsFirebaseDBRepository;
