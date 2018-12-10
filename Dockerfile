@@ -11,12 +11,16 @@ RUN set -xe \
     && apk add --no-cache bash git yarn \
     && git --version && bash --version && npm -v && node -v && yarn -v
 
+RUN yarn global add firebase-tools
+
 # Install app dependencies
 WORKDIR /usr/src/app/client
 RUN yarn
 
 WORKDIR /usr/src/app/service
 RUN yarn
+RUN mkdir logs
+RUN touch config/prod.yml
 
 EXPOSE 3000
 
