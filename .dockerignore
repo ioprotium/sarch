@@ -1,0 +1,10 @@
+**/node_modules
+**/dist
+
+service/config/*.yml
+!service/config/default.yml
+
+service/credentials
+service/logs
+
+service/now.json
