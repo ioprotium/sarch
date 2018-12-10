@@ -71,12 +71,12 @@ export default {
   },
   created() {
     const config = {
-      apiKey: 'AIzaSyC80_duW4Uapsz-o0CWiyp8lJKtc0yQHOc',
-      authDomain: 'sarch-io.firebaseapp.com',
-      databaseURL: 'https://sarch-io.firebaseio.com',
-      projectId: 'sarch-io',
-      storageBucket: 'sarch-io.appspot.com',
-      messagingSenderId: '433056708021'
+      apiKey: process.env.VUE_APP_FIRE_API_KEY,
+      authDomain: process.env.VUE_APP_FIRE_DOMAIN,
+      databaseURL: process.env.VUE_APP_FIRE_DB_URL,
+      projectId: process.env.VUE_APP_FIRE_PID,
+      storageBucket: process.env.VUE_APP_FIRE_STORAGE,
+      messagingSenderId: process.env.VUE_APP_FIRE_MSG_ID
     };
     firebase.initializeApp(config);
     firebase.auth().onAuthStateChanged((firebaseUser) => {
