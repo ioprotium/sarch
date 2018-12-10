@@ -1,0 +1,162 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.1.0",
+    "title": "Sarch"
+  },
+  "host": "localhost:80",
+  "basePath": "/api/v1",
+  "schemes": ["http, https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/accounts": {
+      "parameters": [
+        {
+          "name": "X-Access-Token",
+          "in": "header"
+        }
+      ],
+      "get": {
+        "summary": "Get all accounts",
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/QueryResultAccounts"
+            }
+          },
+          "500": {
+            "description": "Server internal error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new account",
+        "parameters": [
+          {
+            "name": "account",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Account added",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          },
+          "500": {
+            "description": "Server internal error"
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}": {
+      "parameters": [
+        {
+          "name": "X-Access-Token",
+          "in": "header"
+        }
+      ],
+      "get": {
+        "summary": "Get account by id",
+        "parameters": [
+          {
+            "name": "accountId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update account",
+        "parameters": [
+          {
+            "name": "accountId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "account",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a account by id",
+        "parameters": [
+          {
+            "name": "accountId",
+            "type": "string",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Account": {
+      "type": "object",
+      "required": ["email"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "QueryResultAccounts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Account"
+      }
+    }
+  }
+}
