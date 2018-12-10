@@ -1,10 +1,10 @@
 # sarch
 
-A simple NodeJS REST API code sample.
+A simple NodeJS REST API.
 
 # Prerequisites
 
-- Node, Yarn, Git
+- Git, Node, Yarn
 - Firebase Account
 
 # Tech Stack
