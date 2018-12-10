@@ -3,6 +3,8 @@
 
 config/*.yml
 !config/default.yml
+!config/prod.yml
+
 
 credentials
 logs

@@ -1,0 +1,10 @@
+firebase:
+  projectId: sarch-io
+  baseUrl: https://sarch-io.firebaseio.com/
+api:
+  version: v1
+  endpoints:
+    accounts: accounts
+    docs: docs
+server:
+  port: 3000
