@@ -1,6 +1,6 @@
 import * as config from 'config';
-import * as https from 'https';
-import * as fs from 'fs';
+// import * as https from 'https';
+// import * as fs from 'fs';
 import app from './app';
 import logger from './components/logger';
 
@@ -13,6 +13,8 @@ import logger from './components/logger';
 // https.createServer(httpsOptions, app).listen(HTTPS_PORT, () => {
 //   logger.info('[Server] Https server listening on port ' + HTTPS_PORT);
 // });
+
+console.log(process.env.FIREBASE_PRIVATE_KEY);
 
 const PORT = config.get<number>('server.port');
 app.listen(PORT, () => {

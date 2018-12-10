@@ -1,17 +1,65 @@
 # sarch
 
-A simple NodeJS REST API code sample.
+A simple NodeJS REST API.
 
-# install
+# Prerequisites
 
-# run
+- Git, Node, Yarn
+- Firebase Account
 
-## prod
+# Tech Stack
 
-## dev
+## Service
 
-# tests
+- Express, express-rate-limit, body-parser, helmet, morgan
+- Firebase Admin
+- winston
 
-# config
+## Client
 
-I decided to use [config](https://www.npmjs.com/package/config) to handle configuration files with yaml notation. A good alternative could be [dotenv](https://www.npmjs.com/package/dotenv) to use ENV variables with all the service config.
+- Vue 2, Vue CLI 3
+- Vuetify
+- Axios
+- Firebase App, Firebase Auth
+
+# Install
+
+Note: **service** is the main project. All the build script are placed there.
+Change directory
+
+```
+cd service
+```
+
+Installing project dependencies
+
+```
+yarn install
+```
+
+The **preinstall** script will also install the client dependencies
+
+Note: a **postinstall** script will trigger the build script.
+
+# Building
+
+Check you are in **service** folder.
+
+```
+yarn build
+```
+
+The build script will execute the following operations
+
+- Clean prev build by removing **service/dist** folder
+- Build Service
+- Generate API docs with **redoc-cli**
+- Build Client and copy **client/dist** into **service/public**
+
+# Running
+
+Check you are in **service** folder.
+
+```
+yarn start
+```
