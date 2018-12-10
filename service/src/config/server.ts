@@ -20,8 +20,6 @@ export function configureServer(app: Application, apiConfig: IAPIConfig) {
   // auto-generated docs
   app.use(
     `/api/${apiConfig.version}/${apiConfig.endpoints.docs}`,
-    (req, res) => {
-      res.sendFile(path.resolve('redoc-static.html'));
-    }
+    st(path.resolve('dist/api/docs'))
   );
 }
