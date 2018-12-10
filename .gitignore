@@ -4,5 +4,6 @@
 service/config/*.yml
 !service/config/default.yml
 
+service/public
 service/credentials
 service/logs
