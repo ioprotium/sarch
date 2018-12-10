@@ -6,8 +6,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "preinstall": "yarn --cwd service install",
-    "start": "yarn --cwd service start"
+    "postinstall": "cd service && npm install",
+    "start": "cd service && npm run start"
   },
   "engines": {
     "node": ">= 7.9.0"
