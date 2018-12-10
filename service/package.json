@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "preinstall": "yarn --cwd ../client install",
-    "postinstall": "yarn build",
+    "preinstall": "npm --prefix ../client install",
+    "postinstall": "npm run build",
     "dev": "NODE_ENV=\"dev\" nodemon",
     "build:service": "tsc",
     "build": "node ./scripts/build.js",
