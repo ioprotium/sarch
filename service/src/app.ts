@@ -41,9 +41,9 @@ class App {
       const firebaseConfig = config.get<IFirebaseConfig>('firebase');
       this.firebaseApp = firebase.initializeApp({
         credential: firebase.credential.cert({
-          clientEmail: firebaseConfig.clientEmail,
+          clientEmail: process.env.FIREBASE_EMAIL_CLIENT,
           projectId: firebaseConfig.projectId,
-          privateKey: firebaseConfig.privateKey
+          privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n') // fix parse error
         }),
         databaseURL: firebaseConfig.baseUrl
       });
