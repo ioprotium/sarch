@@ -4,6 +4,5 @@
 config/*.yml
 !config/default.yml
 
-public
 credentials
 logs
