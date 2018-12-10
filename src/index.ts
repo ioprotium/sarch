@@ -15,6 +15,6 @@ import logger from './components/logger';
 // });
 
 const PORT = config.get<number>('server.port');
-app.listen(PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
   logger.info('[Server] Http server listening on port ' + PORT);
 });
