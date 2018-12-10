@@ -7,11 +7,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "preinstall": "yarn --cwd client install",
-    "postinstall": "yarn build",
     "dev": "NODE_ENV=\"dev\" nodemon",
     "build:client": "yarn --cwd client run build",
     "build:service": "tsc",
+    "build:local": "node scripts/build.local.js",
     "build": "node scripts/build.js",
     "start": "NODE_ENV=\"prod\" node dist/index.js",
     "test": "jest --detectOpenHandles",
