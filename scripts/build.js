@@ -21,7 +21,7 @@ shell.mkdir('dist/api/docs');
 shell.mv('redoc-static.html', 'dist/api/docs/index.html');
 
 shell.echo(TAG, 'Running client build');
-if (shell.exec('yarn run build:client', { silent: true }).code !== 0) {
+if (shell.exec('yarn run build:client').code !== 0) {
   shell.echo('Error building client');
   shell.exit(1);
 }
