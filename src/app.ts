@@ -89,6 +89,11 @@ class App {
       `/api/${this.apiConfig.version}/${this.apiConfig.endpoints.accounts}`,
       this.accountRouter.routes
     );
+
+    // any other request will be redirected to the client app
+    this.app.get('*', function(req, res) {
+      res.redirect('/');
+    });
   }
 }
 
