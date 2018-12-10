@@ -21,11 +21,13 @@ const winstonLogger = winston.createLogger({
       format: winston.format.combine(timestampFormat, printFormat),
       level: 'warning',
       handleExceptions: true,
-      json: false
+      json: false,
+      silent: process.env.NODE_ENV === 'test'
     }),
     new winston.transports.Console({
       level: 'debug',
       handleExceptions: true,
+      silent: process.env.NODE_ENV === 'test',
       format: winston.format.combine(
         winston.format.colorize(),
         timestampFormat,
@@ -39,6 +41,10 @@ const winstonLogger = winston.createLogger({
 class SarchLogger {
   public debug(...args: any[]) {
     winstonLogger.debug(this.parseArgs(args));
+  }
+
+  public get transports() {
+    return winstonLogger.transports;
   }
 
   public info(...args: any[]) {
