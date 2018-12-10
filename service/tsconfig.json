@@ -3,10 +3,11 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "pretty": true,
-    "sourceMap": true,
-    "target": "es6",
+    "sourceMap": false,
+    "target": "es2017",
     "outDir": "./dist",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "lib": ["es2017", "dom"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
