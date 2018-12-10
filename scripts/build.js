@@ -21,15 +21,13 @@ shell.mkdir('dist/api/docs');
 shell.mv('redoc-static.html', 'dist/api/docs/index.html');
 
 shell.echo(TAG, 'Running client build');
-if (
-  shell.exec('npm run build --prefix ../client', { silent: true }).code !== 0
-) {
+if (shell.exec('yarn --cwd client run build', { silent: true }).code !== 0) {
   shell.echo('Error building client');
   shell.exit(1);
 }
 
 shell.echo(TAG, 'Copying client build');
 shell.mkdir('public');
-shell.cp('-Rf', '../client/dist/*', 'public');
+shell.cp('-Rf', 'client/dist/*', 'public');
 
 shell.echo(TAG, 'Build finished');

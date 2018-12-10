@@ -14,8 +14,6 @@ import logger from './components/logger';
 //   logger.info('[Server] Https server listening on port ' + HTTPS_PORT);
 // });
 
-console.log(process.env.FIREBASE_PRIVATE_KEY);
-
 const PORT = config.get<number>('server.port');
 app.listen(PORT, () => {
   logger.info('[Server] Http server listening on port ' + PORT);

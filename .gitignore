@@ -1,9 +1,9 @@
 **/node_modules
 **/dist
 
-service/config/*.yml
-!service/config/default.yml
+config/*.yml
+!config/default.yml
 
-service/public
-service/credentials
-service/logs
+public
+credentials
+logs
