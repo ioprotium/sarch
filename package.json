@@ -1,0 +1,15 @@
+{
+  "name": "sarch-io",
+  "version": "0.1.0",
+  "description": "Sarch",
+  "author": "Brian Mayo",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "preinstall": "yarn --cwd service install",
+    "start": "yarn --cwd service start"
+  },
+  "engines": {
+    "node": ">= 7.9.0"
+  }
+}
