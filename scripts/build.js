@@ -2,7 +2,7 @@ const shell = require('shelljs');
 const TAG = '[Build]';
 
 shell.echo(TAG, 'Cleaning dist folder');
-shell.rm('-rf', ['dist', 'public']);
+shell.rm('-rf', ['dist']);
 
 shell.echo(TAG, 'Running service build');
 if (shell.exec('tsc', { silent: true }).code !== 0) {
