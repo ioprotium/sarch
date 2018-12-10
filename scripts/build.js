@@ -11,7 +11,7 @@ if (shell.exec('tsc', { silent: true }).code !== 0) {
 }
 
 shell.echo(TAG, 'Generating docs');
-if (shell.exec('npm run docs', { silent: true }).code !== 0) {
+if (shell.exec('yarn run docs', { silent: true }).code !== 0) {
   shell.echo('Error generating docs');
   shell.exit(1);
 }
@@ -21,7 +21,7 @@ shell.mkdir('dist/api/docs');
 shell.mv('redoc-static.html', 'dist/api/docs/index.html');
 
 shell.echo(TAG, 'Running client build');
-if (shell.exec('yarn --cwd client run build', { silent: true }).code !== 0) {
+if (shell.exec('yarn run build:client', { silent: true }).code !== 0) {
   shell.echo('Error building client');
   shell.exit(1);
 }
