@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "NODE_ENV=dev nodemon",
+    "dev": "NODE_ENV=\"dev\" nodemon",
     "test": "jest --detectOpenHandles",
     "docs:dev": "redoc-cli serve swagger.json --watch",
     "docs": "redoc-cli bundle swagger.json"
