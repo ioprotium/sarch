@@ -73,7 +73,10 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     configureServer(this.app, this.apiConfig);
-    this.app.use('/api/', checkUserAuth(this.firebaseApp.auth()));
+    this.app.use(
+      '/api/',
+      checkUserAuth(this.firebaseApp.auth(), this.apiConfig)
+    );
     this.app.use(
       '/api/',
       new rateLimit({

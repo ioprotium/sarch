@@ -1,12 +1,19 @@
 import { Response, Request } from 'express';
 import { auth } from 'firebase-admin';
+import { IAPIConfig } from '../types';
 
-export function checkUserAuth(fireAuth: auth.Auth) {
+export function checkUserAuth(fireAuth: auth.Auth, apiConfig: IAPIConfig) {
   return async function handler(req: Request, res: Response, next: Function) {
-    if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test') {
+    // the base url is '/api
+    if (
+      req.url === `/${apiConfig.version}/${apiConfig.endpoints.accounts}` ||
+      process.env.NODE_ENV === 'dev' ||
+      process.env.NODE_ENV === 'test'
+    ) {
       next();
       return;
     }
+
     const token = req.header('X-Access-Token');
     if (!token) {
       res.status(401).send('Unauthorized');
