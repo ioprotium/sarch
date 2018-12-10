@@ -13,7 +13,7 @@
     "build:service": "tsc",
     "build:local": "node scripts/build.local.js",
     "build": "node scripts/build.js",
-    "start": "NODE_ENV=\"prod\" node dist/index.js",
+    "start": "NODE_ENV=\"prod\" node ./dist/index.js",
     "test": "jest --detectOpenHandles",
     "docs:dev": "redoc-cli serve swagger.json --watch",
     "docs": "redoc-cli bundle src/api/docs/swagger.json"
