@@ -10,8 +10,22 @@ const printFormat = winston.format.printf(
   info => `${info.timestamp} [${info.level}] ${info.message}`
 );
 
-const winstonLogger = winston.createLogger({
-  transports: [
+const transports: any[] = [
+  new winston.transports.Console({
+    level: 'debug',
+    handleExceptions: true,
+    silent: process.env.NODE_ENV === 'test',
+    format: winston.format.combine(
+      winston.format.colorize(),
+      timestampFormat,
+      winston.format.simple(),
+      printFormat
+    )
+  })
+];
+
+if (process.env.NODE_ENV !== 'test') {
+  transports.push(
     new DailyRotateFile({
       filename: 'sarch-%DATE%.log',
       datePattern: 'YYMMDD',
@@ -21,21 +35,13 @@ const winstonLogger = winston.createLogger({
       format: winston.format.combine(timestampFormat, printFormat),
       level: 'warning',
       handleExceptions: true,
-      json: false,
-      silent: process.env.NODE_ENV === 'test'
-    }),
-    new winston.transports.Console({
-      level: 'debug',
-      handleExceptions: true,
-      silent: process.env.NODE_ENV === 'test',
-      format: winston.format.combine(
-        winston.format.colorize(),
-        timestampFormat,
-        winston.format.simple(),
-        printFormat
-      )
+      json: false
     })
-  ]
+  );
+}
+
+const winstonLogger = winston.createLogger({
+  transports
 });
 
 class SarchLogger {
