@@ -24,7 +24,7 @@ class AccountsFirebaseDBRepository implements IAccountsRepository {
       const snap = await accountsRef.once('value');
       let result: AccountModel[] = [];
       snap.forEach(s => {
-        result.push({ id: s.key, email: s.val().email });
+        result.push({ id: s.key, ...s.val() });
       });
 
       return result;
