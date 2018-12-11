@@ -156,7 +156,7 @@ export default {
 				this.$http
 					.put(`${this.apiPath}/${this.current.id}`, this.current, { headers: this.tokenHeaders })
 					.then(({ data }) => {
-						this.items[this.currentIndex] = data
+						Object.assign(this.items[this.currentIndex], data)
 						this.resetForm()
 					})
 			} else {
