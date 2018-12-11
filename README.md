@@ -199,17 +199,17 @@ This will use Vue cli for live and hot reload on port **8080**.
 
 **Note:** Due to hot reload features is possibly that you will experiment errors with firebase app instance. If you see errors in web inspector just hit F5.
 
-**Note:** if you had changed the default server port (**3000**) you must change **VUE_APP_ROOT_API** in **/client/.env** file. 
+**Note:** if you had changed the default server port (**3000**) you must change **VUE_APP_ROOT_API** in **/client/.env** file.
 
 ### Testing: Jest
 
-Tests are written with [BDD pattern](https://en.wikipedia.org/wiki/Behavior-driven_development). This project uses **Jest** and **ts-jest** to run test from our source files. Jest patterns is set to match **specs.ts** and __*.scpecs.ts__ files. There will be a specs file defined for each API endpoint. Also we have a specs file defined for server responses tests. 
+Tests are written with [BDD pattern](https://en.wikipedia.org/wiki/Behavior-driven_development). This project uses **Jest** and **ts-jest** to run test from our source files. Jest patterns is set to match **specs.ts** and **\*.scpecs.ts** files. There will be a specs file defined for each API endpoint. Also we have a specs file defined for server responses tests.
 
 To execute tests run
 
-````
+```
 yarn test
-````
+```
 
 **Note:** When you are running test the API will use a MockRepository to simulate DB operations.
 **Note:** The authentication check is disabled in **dev** and **test** environment (**process.env.NODE_ENV**)
@@ -224,7 +224,7 @@ If you want to test the auth layer run the service in **prod** mode
 yarn start
 ```
 
-Check if auth layer is working 
+Check if auth layer is working
 
 ```
 curl -X GET http://localhost:3000/api/v1/accounts
@@ -240,7 +240,7 @@ You will get an 401 because the X-Access-Token was not provided
 
 No. SARCH was made to be as simple as possible. I didn't put much effort on the client and the authentication is addressed by Firebase SDK. For this app to be production ready we should:
 
-- **Audit security:** SARCH uses **helmet** default config and rate limit is set at 100 request per every 5 minutes. We should check and research for all the security threats for our current tech stack before deploy it to production environments. 
+- **Audit security:** SARCH uses **helmet** default config and rate limit is set at 100 request per every 5 minutes. We should check and research for all the security threats for our current tech stack before deploy it to production environments.
 - **Check users accounts:** The firebase auth is configured to accept users with only an email and password. We should check if those users verified their accounts in order to grant access to them. We should change the auth support to another providers like Google, Facebook or Twitter. That could work as another security layer forcing users to get a valid account in other platforms. We could also add a catpcha to the login view.
 - **Service Logs:** we should check all possible unhandled exceptions in the node process as we add more endpoints to our API. The logs are defined as TAG based. Each log message must provide a context and all the info needed for debugging.
 - **Detach Client APP:** Client app should be placed in other project and this project should only serve the API resources. The build script should only care about the service. To keep things simple the client app is a subproject.
@@ -249,14 +249,13 @@ No. SARCH was made to be as simple as possible. I didn't put much effort on the 
 - **Implement GraphQL over Firebase Realtime DB or other db providers implemented:** as our API model grows we could implement GraphQL.
 - **Implement Git Flow:** SARCH uses only a **development** branch. I did this entire project alone so I worked only on development. We should implement git flow for feature/release development and configure Git to merge **development** branch on **master** only if test are passed.
 - **Docker:** this project has an initial Docker config but no image was build. Getting a container for our app could help us to make deployment in many cloud services that supports docker images.
+- **Improve Service Oriented Architecture Development**: To improve the development experience of this project we could implement a framework to help us with the architecture and OpenApi definitions. [Tsoa](https://github.com/lukeautry/tsoa) looks promising.
 
 ### MISC
 
 To configure and CircleCI you only have to get a free CircleCI account and fork this project. Same for Heroku deployments.
 
 **Note:** you will have to configure the needed environment variables in both services.
-
-
 
 ### LICENSE
 
