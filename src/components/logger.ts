@@ -33,7 +33,7 @@ if (process.env.NODE_ENV !== 'test') {
       maxFiles: '7d',
       dirname: 'logs',
       format: winston.format.combine(timestampFormat, printFormat),
-      level: 'warning',
+      level: 'error',
       handleExceptions: true,
       json: false
     })
