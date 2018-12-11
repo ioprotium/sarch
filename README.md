@@ -232,7 +232,7 @@ curl -X GET http://localhost:3000/api/v1/accounts
 
 You will get an 401 because the X-Access-Token was not provided
 
-![1544484287148](/home/brian/Develop/protium/sarch/docs/images/unauth.png)
+![1544484287148](docs/images/unauth.png)
 
 **Note:** you can extract your **TOKEN KEY** using web inspector network panel to monitor client app requests to the server
 
@@ -257,6 +257,7 @@ No. SARCH was made to be as simple as possible. I didn't put much effort on the 
 To configure and CircleCI you only have to get a free CircleCI account and fork this project. Same for Heroku deployments.
 
 **Note:** you will have to configure the needed environment variables in both services.
+**Note:** use [ci skip] directive if there is no need deploy
 
 ### Suggestions?
 
