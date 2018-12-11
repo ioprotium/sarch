@@ -251,13 +251,14 @@ No. SARCH was made to be as simple as possible. I didn't put much effort on the 
 - **Implement Git Flow:** SARCH uses only a **development** branch. I did this entire project alone so I worked only on development. We should implement git flow for feature/release development and configure Git to merge **development** branch on **master** only if test are passed.
 - **Docker:** this project has an initial Docker config but no image was build. Getting a container for our app could help us to make deployment in many cloud services that supports docker images.
 - **Improve Service Oriented Architecture Development**: To improve the development experience of this project we could implement a framework to help us with the architecture and OpenApi definitions. [Tsoa](https://github.com/lukeautry/tsoa) looks promising.
+- **PWA Support for Client app:** A really nice feature to have for API client web apps.
 
 ### MISC
 
 To configure and CircleCI you only have to get a free CircleCI account and fork this project. Same for Heroku deployments.
 
 **Note:** you will have to configure the needed environment variables in both services.
-**Note:** use [ci skip] directive if there is no need deploy
+**Note:** use [ci skip] directive if there is no need to run CI
 
 ### Suggestions?
 
