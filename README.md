@@ -45,8 +45,8 @@ Heroku and CircleCI are optional.
 +-- src -- Service source
 |   +-- api -- all the service endpoints
 |   +-- business -- the business layer
-|   +-- components -- loggin components, audit, etc
-|   +-- config -- configuration functions
+|   +-- components -- logging components, audit, etc
+|   +-- config -- configuration middlewares
 |   +-- data -- data layer
 |   |   +-- repositories // all repositories needed for api/models
 ```
@@ -240,6 +240,7 @@ You will get an 401 because the X-Access-Token was not provided
 
 No. SARCH was made to be as simple as possible. I didn't put much effort on the client and the authentication is addressed by Firebase SDK. For this app to be production ready we should:
 
+- **Real Time Updates:** As we are making use of Firebase Realtime DB we should take advantage of the SDK to provide real time data updates on the client.
 - **Audit security:** SARCH uses **helmet** default config and rate limit is set at 100 request per every 5 minutes. We should check and research for all the security threats for our current tech stack before deploy it to production environments.
 - **Check users accounts:** The firebase auth is configured to accept users with only an email and password. We should check if those users verified their accounts in order to grant access to them. We should change the auth support to another providers like Google, Facebook or Twitter. That could work as another security layer forcing users to get a valid account in other platforms. We could also add a catpcha to the login view.
 - **Service Logs:** we should check all possible unhandled exceptions in the node process as we add more endpoints to our API. The logs are defined as TAG based. Each log message must provide a context and all the info needed for debugging.
@@ -256,6 +257,10 @@ No. SARCH was made to be as simple as possible. I didn't put much effort on the 
 To configure and CircleCI you only have to get a free CircleCI account and fork this project. Same for Heroku deployments.
 
 **Note:** you will have to configure the needed environment variables in both services.
+
+### Suggestions?
+
+Feel free to send a PR
 
 ### LICENSE
 
