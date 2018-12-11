@@ -6,7 +6,7 @@ export function checkUserAuth(fireAuth: auth.Auth, apiConfig: IAPIConfig) {
   return async function handler(req: Request, res: Response, next: Function) {
     // the base url is '/api
     if (
-      req.url === `/${apiConfig.version}/${apiConfig.endpoints.accounts}` ||
+      req.url === `/${apiConfig.version}/${apiConfig.endpoints.docs}` ||
       process.env.NODE_ENV === 'dev' ||
       process.env.NODE_ENV === 'test'
     ) {

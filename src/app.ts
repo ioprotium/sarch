@@ -61,7 +61,7 @@ class App {
       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
       res.header(
         'Access-Control-Allow-Headers',
-        'Content-type,Accept,X-Access-Token,X-Key'
+        'Content-type,Accept,X-Access-Token'
       );
       if (req.method == 'OPTIONS') {
         res.status(200).end();
