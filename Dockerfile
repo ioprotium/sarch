@@ -11,10 +11,8 @@ RUN set -xe \
     && apk add --no-cache bash git yarn \
     && git --version && bash --version && npm -v && node -v && yarn -v
 
-RUN yarn global add firebase-tools
-
 # Install app dependencies
-WORKDIR /usr/src/app/client
+WORKDIR /usr/src/app/service/client
 RUN yarn
 
 WORKDIR /usr/src/app/service

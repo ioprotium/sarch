@@ -16,7 +16,6 @@
     "@vue/cli-service": "^3.0.3",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
-    "vue-cli": "^2.9.6",
     "vue-cli-plugin-vuetify": "^0.4.6",
     "vue-template-compiler": "^2.5.17",
     "vuetify-loader": "^1.0.5"

@@ -1,7 +1,5 @@
 firebase:
   projectId: <PROJECT_ID>
-  clientEmail: foo@<PROJECT_ID>.iam.gserviceaccount.com
-  privateKey: -----BEGIN PRIVATE KEY-----\n<KEY>\n-----END PRIVATE KEY-----\n
   baseUrl: https://<DB NAME>.firebaseio.com
 api:
   version: v1
