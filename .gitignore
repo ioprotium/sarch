@@ -4,6 +4,7 @@
 config/*.yml
 !config/default.yml
 
+client/.env.*
 
 credentials
 logs

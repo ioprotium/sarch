@@ -161,6 +161,23 @@ Check your environment variables
 echo $FIREBASE_EMAIL_CLIENT && echo $FIREBASE_PRIVATE_KEY
 ```
 
+
+
+Now you need to configure web public key credentials for the client app.
+
+```
+VUE_APP_FIRE_API_KEY=< key >
+VUE_APP_FIRE_DOMAIN=< domain >
+VUE_APP_FIRE_DB_URL=< url >
+VUE_APP_FIRE_PID= < project id >
+VUE_APP_FIRE_STORAGE=< storage bucket>
+VUE_APP_FIRE_MSG_ID=< msg sender id >
+```
+
+
+
+Open **/client/.env** and add your config. To get your firebase public key go to [https://firebase.google.com/docs/web/setup](https://firebase.google.com/docs/web/setup)
+
 ### Running
 
 Check **/dist and /public** folder were generated correctly and then execute in project root folder
@@ -187,9 +204,7 @@ yarn dev
 
 Nodemon is configured to work with **ts-node** for watch&reload the service. Any change you make in source files will trigger a reload. **Note:** server PORT number is configured in **/config/default.yml**
 
-For client development you have to configure your firebase app. Open **/client/.env.development** and add your config. To get your firebase public key go to [https://firebase.google.com/docs/web/setup](https://firebase.google.com/docs/web/setup)
-
-Now run
+For client side development: run
 
 ```
 cd client && yarn serve
@@ -240,29 +255,28 @@ You will get an 401 because the X-Access-Token was not provided
 
 No. SARCH was made to be as simple as possible. I didn't put much effort on the client and the authentication is addressed by Firebase SDK. For this app to be production ready we should:
 
-- **Real Time Updates:** As we are making use of Firebase Realtime DB we should take advantage of the SDK to provide real time data updates on the client.
 - **Audit security:** SARCH uses **helmet** default config and rate limit is set at 100 request per every 5 minutes. We should check and research for all the security threats for our current tech stack before deploy it to production environments.
-- **Check users accounts:** The firebase auth is configured to accept users with only an email and password. We should check if those users verified their accounts in order to grant access to them. We should change the auth support to another providers like Google, Facebook or Twitter. That could work as another security layer forcing users to get a valid account in other platforms. We could also add a catpcha to the login view.
-- **Service Logs:** we should check all possible unhandled exceptions in the node process as we add more endpoints to our API. The logs are defined as TAG based. Each log message must provide a context and all the info needed for debugging.
-- **Detach Client APP:** Client app should be placed in other project and this project should only serve the API resources. The build script should only care about the service. To keep things simple the client app is a subproject.
-- **Strategy Pattern for DB providers:** This project was developed to use **Firebase Realtime DB** but we should add one more layer to allow us to change the DB provider if it is needed.
-- **Reducing server load and response time:** we should apply compression on the responses. We should also apply conditional and cache headers.
-- **Implement GraphQL over Firebase Realtime DB or other db providers implemented:** as our API model grows we could implement GraphQL.
+- **Check users accounts:** The firebase auth is configured to accept users with only an email and password. We should check if those users verified their accounts in order to grant them access to our API. We should change the auth config to support others providers like Google, Facebook or Twitter signin. That could work as another security layer forcing users to get a valid account in other platforms. We could also add a catpcha to the sign in/log in view.
+- **Service Logs:** we should check all possible unhandled exceptions in the node process as we add more endpoints to our API. The logs are defined as TAG based. Each log message must provide a context and all the info needed for debugging (function arguments, function name, etc).
+- **Detach Client APP:** Client app should be placed in other project. It could be a git submodule or subtree or completely external to the service. In this repo our client is placed in a subfolder to keep thing simple.
+- **Strategy Pattern for DB providers:** This project was developed to use **Firebase Realtime DB** but we could add one more layer to manage different data source providers if it is needed.
+- **Reducing server load and response time:** we should apply compression on the responses. We should also apply conditional gets and cache headers.
+- **Implement GraphQL:** as our API model grows we could implement GraphQL to reduce the response size. So user can get only the data they need.
 - **Implement Git Flow:** SARCH uses only a **development** branch. I did this entire project alone so I worked only on development. We should implement git flow for feature/release development and configure Git to merge **development** branch on **master** only if test are passed.
-- **Docker:** this project has an initial Docker config but no image was build. Getting a container for our app could help us to make deployment in many cloud services that supports docker images.
+- **Docker:** this project has an initial Docker config but no image was build. Getting a container for our app could help us to make deployments in many cloud services that supports docker containers.
 - **Improve Service Oriented Architecture Development**: To improve the development experience of this project we could implement a framework to help us with the architecture and OpenApi definitions. [Tsoa](https://github.com/lukeautry/tsoa) looks promising.
 - **PWA Support for Client app:** A really nice feature to have for API client web apps.
 
 ### MISC
 
-To configure and CircleCI you only have to get a free CircleCI account and fork this project. Same for Heroku deployments.
+To configure Heroku and CircleCI you only have to get a **free** CircleCI account and fork this project. Same for Heroku deployments.
 
 **Note:** you will have to configure the needed environment variables in both services.
-**Note:** use [ci skip] directive if there is no need to run CI
+**Note:** use [ci skip] directive if there is no need to run CI.
 
 ### Suggestions?
 
-Feel free to send a PR
+Feel free to send a PR or submit an issue.
 
 ### LICENSE
 
