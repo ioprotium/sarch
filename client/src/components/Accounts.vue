@@ -158,7 +158,11 @@ export default {
 					.then(({ data }) => {
 						Object.assign(this.items[this.currentIndex], data)
 						this.resetForm()
-					})
+          })
+          .catch(e => {
+            this.error = e.request.responseText
+						console.error('Error updating account.', e)
+          })
 			} else {
 				this.$http
 					.post(this.apiPath, this.current, { headers: this.tokenHeaders })
@@ -168,7 +172,7 @@ export default {
 					})
 					.catch(e => {
             this.error = e.request.responseText
-						console.error('Error posting data.', e)
+						console.error('Error creating account.', e)
 					})
 			}
 		},
